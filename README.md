@@ -23,13 +23,30 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Docker
-Build the docker container
+## Build Docker Image
+To build a docker image (tagged latest) run
 ```shell script
- docker build -t <your username>/au-hello-ag .
+npm run docker:build
 ```
-Run the docker container
+to tag the image with the version and the name of the branch run
 ```shell script
-docker run -d -p 3333:3000 ragamiri/au-hello-ag
+npm run docker:tag
 ```
-Test the app by opening http://localhost:3333
+
+## Deploy to Your Local Kubernetes
+To deploy to your local Kubernetes run
+```shell script
+npm run kube:apply
+```
+You can keep track of the deployment via
+```shell script
+kubectl get pods --watch
+```
+Once deployed The application should be available at http://192.168.64.2:30001.
+
+## Delete deployment from Local Kubernetes
+You can remove the service and deployment via
+```shell script
+npm run kube:delete
+```
+

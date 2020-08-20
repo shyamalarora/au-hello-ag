@@ -2,12 +2,26 @@
   "name": "au-hello-ag",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "imageRepo": "192.168.64.2:32000",
+    "branchName": "DIGAUS-17"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "predocker:build": "npm run build --prod && npm test",
+    "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo/$npm_package_name:$npm_package_version:latest",
+    "postdocker:build": "npm run docker:tag",
+    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo/$npm_package_name:$npm_package_version $npm_package_config_imageRepo/$npm_package_name:$npm_package_config_branchName",
+    "predocker:publish": "echo Attention! Ensure local kubernetes is running.",
+    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo/$npm_package_name:$npm_package_version",
+    "prekube:publish": "echo Attention! Ensure you have your kube config setup",
+    "kube:apply": "kubectl apply -f au-hello-ag.yaml",
+    "kube:delete": "kubectl delete -f au-hello-ag.yaml"
   },
   "dependencies": {
+    "cross-conf-env": "^1.1.2",
     "next": "9.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"

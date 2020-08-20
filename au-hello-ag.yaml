@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: au-hello-ag
+spec:
+  selector:
+    app: au-hello-ag
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30001
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: au-hello-ag
+  name: au-hello-ag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: au-hello-ag
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: au-hello-ag
+    spec:
+      containers:
+      - image: localhost:32000/au-hello-ag:0.1.0
+        name: au-hello-ag
+        ports:
+          - containerPort: 3000
