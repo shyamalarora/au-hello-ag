@@ -57,6 +57,7 @@ trigger:
   # - refs/pull/*/head
   event:
   - push
+
   # - pull_request
 
 volumes:
