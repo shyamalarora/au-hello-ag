@@ -53,11 +53,10 @@ steps:
 
 trigger:
   ref:
-  - refs/heads/feature/DIGAUS-17
+  - refs/heads/feature*
   # - refs/pull/*/head
   event:
   - push
-
   # - pull_request
 
 volumes:
