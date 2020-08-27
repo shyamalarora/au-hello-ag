@@ -52,12 +52,12 @@ steps:
 #   when: *onMasterPush
 
 trigger:
-  ref:
-  - refs/heads/feature*
-  # - refs/pull/*/head
   event:
   - push
   # - pull_request
+  ref:
+  - refs/heads/*
+  # - refs/pull/*/head
 
 volumes:
 - name: docker_sock
