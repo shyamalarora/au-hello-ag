@@ -1,0 +1,18 @@
+version: "2.1"
+
+services:
+  build_image:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/build-container:latest
+    working_dir: /workspace
+    # entrypoint: /usr/bin/python3
+    volumes:
+      - .:/workspace
+    environment:
+      # - AWS_DEFAULT_REGION=ap-southeast-2
+      # - AWS_ACCESS_KEY_ID
+      # - AWS_SECRET_ACCESS_KEY
+      # - AWS_SESSION_TOKEN
+      - TARGET
+      - DOCKER_FILE
+      - USE_CACHE
+

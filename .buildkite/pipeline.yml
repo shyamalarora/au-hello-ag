@@ -1,0 +1,16 @@
+steps:
+  - label: ":pipeline:"
+    command: "buildkite-agent pipeline upload"
+    agents:
+      queue: "buildkite-agent-sandbox-au"
+
+  - label: ':docker: Build Container'
+    command: './deploy.sh build_image'
+    retry:
+      automatic:
+        - exit_status: -1  # Agent was lost
+          limit: 1
+        - exit_status: 255 # Forced agent shutdown
+          limit: 1
+    agents:
+      queue: "buildkite-agent-sandbox-au"
