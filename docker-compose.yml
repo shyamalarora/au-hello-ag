@@ -15,4 +15,6 @@ services:
       - TARGET
       - DOCKER_FILE
       - USE_CACHE
+      - BUILDKITE_PIPELINE_NAME
+      - BUILDKITE_COMMIT
 
