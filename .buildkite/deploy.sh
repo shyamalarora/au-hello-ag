@@ -12,4 +12,4 @@ fi
 echo "Flags"
 echo "${FLAGS}"
 
-docker-compose --log-level ERROR run --rm ${COMMAND}
+docker-compose  --log-level ERROR run --rm ${COMMAND}

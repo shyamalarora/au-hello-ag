@@ -4,3 +4,8 @@ steps:
     command: './.buildkite/deploy.sh build_image'
     agents:
       queue: "buildkite-agent-sandbox-au"
+
+  - label: ':docker: Publish Container'
+    command: './.buildkite/deploy.sh publish_image'
+    agents:
+      queue: "buildkite-agent-sandbox-au"

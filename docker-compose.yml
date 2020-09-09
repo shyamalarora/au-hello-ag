@@ -4,7 +4,6 @@ services:
   build_image:
     image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/build-container:latest
     working_dir: /workspace
-    # entrypoint: /usr/bin/python3
     volumes:
       - .:/workspace
       - /var/run/docker.sock:/var/run/docker.sock
@@ -19,3 +18,15 @@ services:
       - BUILDKITE_PIPELINE_NAME
       - BUILDKITE_COMMIT
 
+  publish_image:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/publish-container:latest
+    working_dir: /workspace
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      # - AWS_DEFAULT_REGION=ap-southeast-2
+      # - AWS_ACCESS_KEY_ID
+      # - AWS_SECRET_ACCESS_KEY
+      # - AWS_SESSION_TOKEN
+      - BUILDKITE_PIPELINE_NAME
+      - BUILDKITE_COMMIT
