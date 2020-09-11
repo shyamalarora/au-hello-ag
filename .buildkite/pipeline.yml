@@ -1,18 +1,18 @@
 steps:
 
-  - label: ':docker: Build Container'
-    command: './.buildkite/deploy.sh build_image'
-    agents:
-      queue: "buildkite-agent-sandbox-au"
+  # - label: ':docker: Build Container'
+  #   command: './.buildkite/deploy.sh build_image'
+  #   agents:
+  #     queue: "buildkite-agent-sandbox-au"
       
-  - wait
+  # - wait
 
-  - label: ':rocket: Publish Container'
-    command: './.buildkite/deploy.sh publish_image'
-    agents:
-      queue: "buildkite-agent-sandbox-au"
+  # - label: ':rocket: Publish Container'
+  #   command: './.buildkite/deploy.sh publish_image'
+  #   agents:
+  #     queue: "buildkite-agent-sandbox-au"
 
-  - wait
+  # - wait
 
   - label: ':helm: Update Helm Charts'
     command: './.buildkite/deploy.sh update_helm_charts'
