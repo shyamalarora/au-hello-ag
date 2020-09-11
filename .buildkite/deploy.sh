@@ -1,4 +1,7 @@
 #!/bin/sh
+
+set -euo pipefail
+
 COMMAND=${1}
 FLAGS=""
 

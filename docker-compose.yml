@@ -8,10 +8,6 @@ services:
       - .:/workspace
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      # - AWS_DEFAULT_REGION=ap-southeast-2
-      # - AWS_ACCESS_KEY_ID
-      # - AWS_SECRET_ACCESS_KEY
-      # - AWS_SESSION_TOKEN
       - TARGET
       - DOCKER_FILE
       - USE_CACHE
@@ -24,9 +20,20 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      # - AWS_DEFAULT_REGION=ap-southeast-2
-      # - AWS_ACCESS_KEY_ID
-      # - AWS_SECRET_ACCESS_KEY
-      # - AWS_SESSION_TOKEN
       - BUILDKITE_PIPELINE_NAME
       - BUILDKITE_COMMIT
+
+  update_helm_charts:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/update-cd-repo-helm-values:latest
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - GIT_REPO
+      - ENV
+      - HELM_VALUES_FILE_NAME_STRATEGY
+      - HELM_VALUES_FILE_SUB_DIRECTORY
+      - BUILDKITE_COMMIT
+      - BUILDKITE_BRANCH
+      - BUILDKITE_REPO
