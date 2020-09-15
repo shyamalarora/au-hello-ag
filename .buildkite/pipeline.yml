@@ -8,6 +8,8 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
+    agents:
+      queue: "buildkite-agent-sandbox-au"
 
   # - label: ':docker: Build Container'
   #   command: './.buildkite/deploy.sh build_image'
