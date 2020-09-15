@@ -3,7 +3,7 @@ version: "2.1"
 services:
 
   app:
-    image: node:14.8.0-stretch
+    image: node:12.18.3-stretch
     working_dir: /workspace
     volumes:
       - .:/workspace
