@@ -1,52 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AU-hello-ag
+Starter project for Digital Australia that will be used to validate the SLDC
 
-## Getting Started
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-First, run the development server:
+## Installing dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Ensure you are running the correct version of node using `node --version`. You can find the supported node version in `.nvmrc`. If you have [NVM](https://github.com/nvm-sh/nvm) installed switch to the correct node context using `nvm use`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Local Development
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+To install dependencies for local development run `npm install` in the root directory. If the `package-lock.json` change as a result of the install, check this in with you next commit.
 
-## Learn More
+### Automated Builds
 
-To learn more about Next.js, take a look at the following resources:
+When building the app via ci for testing / deployment run `npm ci` from the root directory.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+In the project directory, you can run:
 
-## Build Docker Image
-To build a docker image (tagged latest) run
-```shell script
-npm run docker:build
-```
-to tag the image with the version and the name of the branch run
-```shell script
-npm run docker:tag
-```
+### `npm start`
 
-## Deploy to Your Local Kubernetes
-To deploy to your local Kubernetes run
-```shell script
-npm run kube:apply
-```
-You can keep track of the deployment via
-```shell script
-kubectl get pods --watch
-```
-Once deployed The application should be available at http://192.168.64.2:30001.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Delete deployment from Local Kubernetes
-You can remove the service and deployment via
-```shell script
-npm run kube:delete
-```
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

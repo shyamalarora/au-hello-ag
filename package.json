@@ -2,28 +2,72 @@
   "name": "au-hello-ag",
   "version": "0.1.0",
   "private": true,
-  "config": {
-    "imageRepo": "192.168.64.2:32000",
-    "branchName": "DIGAUS-17"
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.55",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "typescript": "^3.7.5"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "predocker:build": "npm run build --prod && npm test",
-    "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo/$npm_package_name:$npm_package_version:latest",
-    "postdocker:build": "npm run docker:tag",
-    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo/$npm_package_name:$npm_package_version $npm_package_config_imageRepo/$npm_package_name:$npm_package_config_branchName",
-    "predocker:publish": "echo Attention! Ensure local kubernetes is running.",
-    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo/$npm_package_name:$npm_package_version",
-    "prekube:publish": "echo Attention! Ensure you have your kube config setup",
-    "kube:apply": "kubectl apply -f au-hello-ag.yaml",
-    "kube:delete": "kubectl delete -f au-hello-ag.yaml"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "npm run lint && react-scripts test --watchAll=false",
+    "test:coverage": "npm run lint && react-scripts test --coverage --watchAll=false",
+    "test:watch": "react-scripts test",
+    "test:clear": "jest --clearCache",
+    "lint": "eslint --ext js,ts,tsx src",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --config .prettierrc './src/**/**' --write"
   },
-  "dependencies": {
-    "cross-conf-env": "^1.1.2",
-    "next": "9.5.2",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "./src/index.tsx",
+      "./src/serviceWorker.ts"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "text-summary"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "prettier": "^2.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   }
 }
