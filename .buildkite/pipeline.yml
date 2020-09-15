@@ -1,7 +1,8 @@
 steps:
 
-  - name: "::node: Docker Build and Test"
+  - name: "::node: App Build and Test"
     command:
+    - "git --version"
     - "npm ci"
     - "npm run test:coverage"
     - "npm run build"
