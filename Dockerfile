@@ -1,9 +1,9 @@
 FROM node:12.18.3-stretch
 # Setting working directory. All the path will be relative to WORKDIR
-WORKDIR /usr/src/app
 EXPOSE 3000
+WORKDIR /usr/src
 # Installing dependencies
-COPY package*.json ./
+# COPY package*.json ./
 
 # Copying source files
 COPY . .
@@ -12,4 +12,4 @@ COPY . .
 # Building app
 RUN npm install --unsafe-perm --quite && npm run build
 # Running the app
-CMD [ "npm", "start" ]
+ENTRYPOINT [ "npm", "start" ]
