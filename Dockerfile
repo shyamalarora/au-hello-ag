@@ -1,7 +1,8 @@
-FROM node:14.8.0-stretch
+FROM node:12.18.3-stretch
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
-
+ENV PORT 3000
+EXPOSE 3000
 
 # Installing dependencies
 COPY package*.json ./
