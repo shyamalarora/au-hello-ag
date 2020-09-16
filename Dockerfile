@@ -6,7 +6,8 @@ EXPOSE 3000
 
 # Installing dependencies
 COPY package*.json ./
-RUN npm install --production
+# RUN npm install --production
+RUN npm ci
 
 # Copying source files
 COPY . .
