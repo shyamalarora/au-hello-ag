@@ -18,7 +18,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "CI=true react-scripts start",
     "build": "react-scripts build",
     "test:all": "npm run lint && react-scripts test --watchAll=false",
     "test": "npm run lint && react-scripts test --watchAll=false",
