@@ -12,6 +12,7 @@ COPY . .
 RUN npm ci
 # RUN npm install
 # Building app
-RUN npm install --unsafe-perm --quite && npm run build
+RUN npm run build
 # Running the app
-CMD [ "npm", "start" ]
+ENTRYPOINT ["npm", "start"]
+CMD [ "node", "build/index.html" ]

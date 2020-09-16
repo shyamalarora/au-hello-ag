@@ -5,6 +5,7 @@ steps:
     - "npm ci"
     - "npm run test:coverage"
     - "npm run build"
+    - "npm run test:all"
     plugins:
       - docker-compose#v3.0.3:
           run: app
