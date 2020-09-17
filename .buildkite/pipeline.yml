@@ -9,7 +9,7 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-    if: "build.pull_request.base_branch == 'master'"
+    if: build.pull_request.base_branch == 'master'
     agents:
       queue: "buildkite-agent-sandbox-au"
 
