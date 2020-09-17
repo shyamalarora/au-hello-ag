@@ -1,0 +1,45 @@
+steps:
+
+  - name: "::node: App Build and Test"
+    command:
+    - "npm ci --loglevel silent"
+    - "npm run test:coverage"
+    - "npm run build"
+    - "npm run test:all"
+    plugins:
+      - docker-compose#v3.0.3:
+          run: app
+    if: "build.pull_request.base_branch == 'master'"
+    agents:
+      queue: "buildkite-agent-sandbox-au"
+
+
+
+  - wait
+
+  - label: ':docker: Build Container'
+    command: './.buildkite/deploy.sh build_image'
+    branches: "master"
+    agents:
+      queue: "buildkite-agent-sandbox-au"
+      
+  - wait
+
+  - label: ':rocket: Publish Container'
+    command: './.buildkite/deploy.sh publish_image'
+    branches: "master"
+    agents:
+      queue: "buildkite-agent-sandbox-au"
+
+  - wait
+
+  - label: ':helm: Update Helm Charts'
+    command: './.buildkite/deploy.sh update_helm_charts'
+    branches: "master"
+    env:
+      GIT_REPO: github.com/Agrium/digital-helm-charts.git
+      ENV: dev
+      HELM_VALUES_FILE_NAME_STRATEGY: suffix
+      HELM_VALUES_FILE_SUB_DIRECTORY: au-hello-ag
+    agents:
+      queue: "buildkite-agent-sandbox-au"

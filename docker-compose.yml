@@ -1,0 +1,48 @@
+version: "2.1"
+
+services:
+
+  app:
+    image: node:12.18.3-stretch
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  build_image:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/build-container:latest
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TARGET
+      - DOCKER_FILE
+      - USE_CACHE
+      - BUILDKITE_PIPELINE_NAME
+      - BUILDKITE_COMMIT
+
+  publish_image:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/publish-container:latest
+    working_dir: /workspace
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - BUILDKITE_PIPELINE_NAME
+      - BUILDKITE_COMMIT
+
+  update_helm_charts:
+    image: 101433154256.dkr.ecr.ap-southeast-2.amazonaws.com/nutrien/update-cd-repo-helm-values:latest
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - GIT_REPO
+      - GIT_HTTPS_USERNAME
+      - ENV
+      - HELM_VALUES_FILE_NAME_STRATEGY
+      - HELM_VALUES_FILE_SUB_DIRECTORY
+      - BUILDKITE_COMMIT
+      - BUILDKITE_BRANCH
+      - BUILDKITE_REPO
