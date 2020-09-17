@@ -17,17 +17,18 @@
 # CMD ["npm", "start"]
 # # CMD [ "node", "build/index.html" ]
 
-FROM node:12.18.3-stretch as build-deps
-WORKDIR /usr/src/app
+FROM node:12.18.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
-COPY . .
-RUN npm ci
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install react-scripts@3.4.3 -g --silent
+COPY . ./
 RUN npm run build
 
-# Stage 2 - the production environment
-FROM nginxinc/nginx-unprivileged 
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
-    chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
