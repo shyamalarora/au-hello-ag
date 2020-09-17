@@ -2,7 +2,7 @@ steps:
 
   - name: "::node: App Build and Test"
     command:
-    - "npm ci"
+    - "npm ci --loglevel silent"
     - "npm run test:coverage"
     - "npm run build"
     - "npm run test:all"
@@ -12,28 +12,28 @@ steps:
     agents:
       queue: "buildkite-agent-sandbox-au"
 
-  - wait
+  # - wait
 
-  - label: ':docker: Build Container'
-    command: './.buildkite/deploy.sh build_image'
-    agents:
-      queue: "buildkite-agent-sandbox-au"
+  # - label: ':docker: Build Container'
+  #   command: './.buildkite/deploy.sh build_image'
+  #   agents:
+  #     queue: "buildkite-agent-sandbox-au"
       
-  - wait
+  # - wait
 
-  - label: ':rocket: Publish Container'
-    command: './.buildkite/deploy.sh publish_image'
-    agents:
-      queue: "buildkite-agent-sandbox-au"
+  # - label: ':rocket: Publish Container'
+  #   command: './.buildkite/deploy.sh publish_image'
+  #   agents:
+  #     queue: "buildkite-agent-sandbox-au"
 
-  - wait
+  # - wait
 
-  - label: ':helm: Update Helm Charts'
-    command: './.buildkite/deploy.sh update_helm_charts'
-    env:
-      GIT_REPO: github.com/Agrium/digital-helm-charts.git
-      ENV: dev
-      HELM_VALUES_FILE_NAME_STRATEGY: suffix
-      HELM_VALUES_FILE_SUB_DIRECTORY: au-hello-ag
-    agents:
-      queue: "buildkite-agent-sandbox-au"
+  # - label: ':helm: Update Helm Charts'
+  #   command: './.buildkite/deploy.sh update_helm_charts'
+  #   env:
+  #     GIT_REPO: github.com/Agrium/digital-helm-charts.git
+  #     ENV: dev
+  #     HELM_VALUES_FILE_NAME_STRATEGY: suffix
+  #     HELM_VALUES_FILE_SUB_DIRECTORY: au-hello-ag
+  #   agents:
+  #     queue: "buildkite-agent-sandbox-au"
