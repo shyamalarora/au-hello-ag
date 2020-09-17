@@ -21,7 +21,7 @@ FROM node:12.18.3-stretch as build-deps
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY . .
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 # Stage 2 - the production environment
