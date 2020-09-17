@@ -25,7 +25,9 @@ RUN npm ci
 RUN npm run build
 
 # Stage 2 - the production environment
-FROM nginx:1.12-alpine
+FROM nginxinc/nginx-unprivileged 
 COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
+RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
+    chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
